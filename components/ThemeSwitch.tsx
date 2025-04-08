@@ -1,10 +1,15 @@
 import { useState, useEffect } from "react";
 import { SunMedium, Moon, Laptop } from "lucide-react";
 import Cookies from "js-cookie";
+import { cn } from "@/lib/utils";
 
 type Theme = "light" | "dark" | "system";
 
-export default function ThemeSwitch() {
+type ThemeSwitchProps = {
+  className?: string;
+};
+
+export default function ThemeSwitch({ className }: ThemeSwitchProps) {
   const [theme, setTheme] = useState<Theme>("system");
 
   useEffect(() => {
@@ -45,7 +50,7 @@ export default function ThemeSwitch() {
   const unselectedClassNames = "text-gray-500 hover:bg-gray-100 hover:text-gray-700 dark:hover:bg-gray-700 dark:hover:text-gray-300";
 
   return theme && (
-    <div className="bg-white dark:bg-gray-800 rounded-full p-1 flex shadow-md w-fit">
+    <div className={cn("bg-white dark:bg-gray-800 rounded-full p-1 flex shadow-md w-fit", className)}>
       <button
         onClick={() => toggleTheme("light")}
         className={`p-2 rounded-full ${
