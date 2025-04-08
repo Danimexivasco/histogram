@@ -1,6 +1,6 @@
 "use client";
 
-import Link from "next/link";
+import Link from "@/components/ui/Link";
 import Image from "next/image";
 import { LogOut } from "lucide-react";
 import { useAuthUser, useSignOut } from "@/hooks/useAuth";
@@ -14,6 +14,7 @@ import { Avatar, AvatarFallback, AvatarImage } from "./ui/Avatar";
 import { Skeleton } from "./ui/Skeleton";
 import { HoverCard, HoverCardContent, HoverCardTrigger } from "./ui/HoverCard";
 import { Separator } from "./ui/Separator";
+import { routes } from "@/lib/routes";
 
 export default function Header() {
   const { data: user, isFetching } = useAuthUser();
@@ -33,8 +34,8 @@ export default function Header() {
     <header>
       <Container className="flex items-center justify-between py-4">
         <Link
-          href="/"
-          className="flex items-center gap-2"
+          href={routes.home}
+          className="flex items-center gap-2 no-underline"
         >
           <Image
             src={"/histogram.png"}
@@ -54,8 +55,18 @@ export default function Header() {
             {!isLoggedIn && !isLoading &&
               <div className="flex items-center gap-4">
                 <ThemeSwitch />
-                <Link href="/login">Log in</Link>
-                <Link href="/register">Register</Link>
+                <Link
+                  href={routes.login}
+                  asButton
+                  className="no-underline bg-blue-500 hover:bg-blue-600 dark:text-white text-black"
+                >Log in
+                </Link>
+                <Link
+                  href={routes.register}
+                  asButton
+                  className="no-underline bg-green-500 hover:bg-green-600 dark:text-white text-black"
+                >Register
+                </Link>
               </div>
             }
             {isLoggedIn &&
