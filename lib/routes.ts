@@ -1,8 +1,10 @@
 export const routes = {
-  home:         "/",
-  login:        "/login",
-  register:     "/register",
-  confirmEmail: "/confirm-email"
+  home:           "/",
+  login:          "/login",
+  register:       "/register",
+  confirmEmail:   "/confirm-email",
+  forgotPassword: "/forgot-password",
+  resetPassword:  "/reset-password"
 };
 
 export const routesWithoutHeader = [routes.login, routes.register];
