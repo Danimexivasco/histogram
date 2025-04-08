@@ -1,7 +1,7 @@
-import clsx from "clsx";
 import { default as NextLink } from "next/link";
 import { buttonVariants } from "./Button";
 import { VariantProps } from "class-variance-authority";
+import { cn } from "@/lib/utils";
 
 type LinkProps = VariantProps<typeof buttonVariants> & {
   href: string;
@@ -16,7 +16,7 @@ export default function Link({ href, asButton = false, variant = "default", size
   return (
     <NextLink
       href={href}
-      className={clsx(asButton && buttonVariants({
+      className={cn("underline", asButton && buttonVariants({
         variant,
         size
       }),
