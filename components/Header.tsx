@@ -1,19 +1,19 @@
 "use client";
 
-import { useAuthUser, useSignOut } from "@/hooks/useAuth";
 import Link from "next/link";
 import Image from "next/image";
-import { Button } from "./ui/Button";
-import Container from "./Container";
-import { Avatar, AvatarFallback, AvatarImage } from "./ui/Avatar";
-import ThemeSwitch from "./ThemeSwitch";
-import { Skeleton } from "./ui/Skeleton";
-import { HoverCard, HoverCardContent, HoverCardTrigger } from "./ui/HoverCard";
 import { LogOut } from "lucide-react";
-import { Separator } from "./ui/Separator";
-import clsx from "clsx";
+import { useAuthUser, useSignOut } from "@/hooks/useAuth";
+import { cn } from "@/lib/utils";
 import { caesarDressing } from "@/assets/fonts";
 import useHideHeader from "@/hooks/useHideHeader";
+import Container from "./Container";
+import ThemeSwitch from "./ThemeSwitch";
+import { Button } from "./ui/Button";
+import { Avatar, AvatarFallback, AvatarImage } from "./ui/Avatar";
+import { Skeleton } from "./ui/Skeleton";
+import { HoverCard, HoverCardContent, HoverCardTrigger } from "./ui/HoverCard";
+import { Separator } from "./ui/Separator";
 
 export default function Header() {
   const { data: user, isFetching } = useAuthUser();
@@ -42,7 +42,7 @@ export default function Header() {
             width={40}
             height={40}
           />
-          <h1 className={clsx("text-2xl font-bold", caesarDressing.className)}>Histogram</h1>
+          <h1 className={cn("text-2xl font-bold", caesarDressing.className)}>Histogram</h1>
         </Link>
         {isLoading ? (
           <div className="flex items-center gap-4">
@@ -65,7 +65,7 @@ export default function Header() {
                   <HoverCardTrigger>
                     <Avatar className="w-12 h-12">
                       <AvatarImage src={user.user_metadata?.avatar_url} />
-                      <AvatarFallback>{user.user_metadata?.username[0]}</AvatarFallback>
+                      <AvatarFallback>{user.user_metadata?.username?.[0] ?? user.user_metadata?.full_name?.[0]}</AvatarFallback>
                     </Avatar>
                   </HoverCardTrigger>
                   <HoverCardContent
@@ -75,13 +75,17 @@ export default function Header() {
                     <div className="grid justify-items-center space-y-2">
                       <Avatar className="w-12 h-12">
                         <AvatarImage src={user.user_metadata?.avatar_url} />
-                        <AvatarFallback>{user.user_metadata?.username[0]}</AvatarFallback>
+                        <AvatarFallback>{user.user_metadata?.username?.[0] ?? user.user_metadata?.full_name?.[0]}</AvatarFallback>
                       </Avatar>
-                      <p>{user.user_metadata?.username}</p>
+                      <p>{user.user_metadata?.username ?? user.user_metadata?.full_name}</p>
                       <small>{user.email}</small>
                     </div>
                     <Separator />
-                    <Button onClick={handleSignOut}><LogOut color="red"/> Log out</Button>
+                    <Button
+                      onClick={handleSignOut}
+                      className="w-full"
+                    ><LogOut color="red"/> Log out
+                    </Button>
                   </HoverCardContent>
                 </HoverCard>
               </div>
