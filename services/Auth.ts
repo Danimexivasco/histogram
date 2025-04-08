@@ -1,5 +1,6 @@
 import { AuthModel } from "@/models/supabase/Auth";
-import { validateAuthForm } from "@/schema/authForm";
+import { validateAuthForm, validatePartialAuthForm } from "@/schema/authForm";
+import { validateResetPassword } from "@/schema/resetPassword";
 
 export class AuthService {
   static async signUp({ email, password, username }: {email: string, password: string, username: string}) {
@@ -9,9 +10,7 @@ export class AuthService {
       username
     });
 
-    if (error) {
-      throw new Error("Please, check form fields");
-    }
+    if (error) throw new Error("Please, check form fields");
 
     return await AuthModel.signUp({
       email,
@@ -21,14 +20,50 @@ export class AuthService {
   }
 
   static async signIn({ email, password }: {email: string, password: string}) {
+    const { error } = validatePartialAuthForm({
+      email,
+      password
+    });
+
+    if (error) throw new Error("Please, check form fields");
+
     return await AuthModel.signIn({
       email,
       password
     });
   }
 
+  static async signInWithGoogle() {
+    return await AuthModel.signInWithGoogle();
+  }
+
   static async signOut() {
     return await AuthModel.signOut();
+  }
+
+  static async resetPasswordForEmail({ email }: {email: string}) {
+    const { error } = validatePartialAuthForm({
+      email
+    });
+
+    if (error) throw new Error("Please, check form fields");
+
+    return await AuthModel.resetPasswordForEmail({
+      email
+    });
+  }
+
+  static async updatePassword({ password }: {password: string}) {
+    const { error } = validateResetPassword({
+      password,
+      confirmPassword: password
+    });
+
+    if (error) throw new Error("Please, check form fields");
+
+    return await AuthModel.updatePassword({
+      password
+    });
   }
 
   static async getUserSession() {

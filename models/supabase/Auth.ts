@@ -7,7 +7,8 @@ export class AuthModel {
       email,
       password,
       options: {
-        data: {
+        emailRedirectTo: `${window.location.origin}/confirm-email`,
+        data:            {
           username
         }
       }
@@ -36,8 +37,38 @@ export class AuthModel {
     return data;
   }
 
+  static async signInWithGoogle() {
+    const { data, error } = await supabase.auth.signInWithOAuth({
+      provider: "google"
+    });
+
+    if (error) throw new Error("Error singing in with Google");
+
+    return data;
+  }
+
   static async signOut() {
     await supabase.auth.signOut();
+    return true;
+  }
+
+  static async resetPasswordForEmail({ email }: {email: string}) {
+    const { error } = await supabase.auth.resetPasswordForEmail(email, {
+      redirectTo: `${window.location.origin}/reset-password`
+    });
+
+    if (error) throw new Error("Error sending reset password email");
+
+    return true;
+  }
+
+  static async updatePassword({ password }: {password: string}) {
+    const { error } = await supabase.auth.updateUser({
+      password
+    });
+
+    if (error) throw new Error("Error updating password");
+
     return true;
   }
 
