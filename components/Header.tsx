@@ -64,7 +64,7 @@ export default function Header() {
                 <Link
                   href={routes.register}
                   asButton
-                  className="no-underline bg-green-500 hover:bg-green-600 dark:text-white text-black"
+                  className="no-underline"
                 >Register
                 </Link>
               </div>
