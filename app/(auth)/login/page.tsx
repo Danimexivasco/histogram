@@ -2,7 +2,6 @@
 
 import { useSignIn, useSignInWithGoogle } from "@/hooks/useAuth";
 import { useActionState, useState } from "react";
-import { useRouter } from "next/navigation";
 import { Button } from "@/components/ui/Button";
 import { validatePartialAuthForm } from "@/schema/authForm";
 import { isErrorType, ToastService } from "@/services/Toast";
@@ -23,6 +22,7 @@ import Container from "@/components/Container";
 import Link from "@/components/ui/Link";
 import { GoogleIcon } from "@/assets/icons/google";
 import ThemeSwitch from "@/components/ThemeSwitch";
+import { useAuthStateChange } from "@/hooks/useAuthStateChanged";
 
 const FORM_INITIAL_STATE = {
   email:    "",
@@ -32,7 +32,7 @@ const FORM_INITIAL_STATE = {
 type LoginForm = typeof FORM_INITIAL_STATE;
 
 export default function SignInPage() {
-  const router = useRouter();
+  useAuthStateChange();
   const signInMutation = useSignIn();
   const googleSignInMutation = useSignInWithGoogle();
 
@@ -63,8 +63,6 @@ export default function SignInPage() {
     try {
       await signInMutation.mutateAsync(inputs as LoginForm);
       setErrors(null);
-      router.push(routes.home);
-
     } catch (error) {
       if (isErrorType(error)) ToastService.error(error.message);
     }

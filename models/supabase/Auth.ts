@@ -18,7 +18,8 @@ export class AuthModel {
 
     const profileId = await ProfileService.create({
       id: data.user?.id,
-      username
+      username,
+      email
     });
 
     if (!profileId) throw new Error("Error creating the profile");
@@ -39,7 +40,10 @@ export class AuthModel {
 
   static async signInWithGoogle() {
     const { data, error } = await supabase.auth.signInWithOAuth({
-      provider: "google"
+      provider: "google",
+      options:  {
+        redirectTo: `${window.location.origin}/login`
+      }
     });
 
     if (error) throw new Error("Error singing in with Google");

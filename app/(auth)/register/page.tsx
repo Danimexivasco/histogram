@@ -86,7 +86,6 @@ export default function RegisterPage() {
           <CardContent>
             <form action={submitAction}>
               <div className="grid gap-6">
-
                 <div className="grid gap-6">
                   <div className="grid gap-2">
                     <Label htmlFor="username">Username</Label>
