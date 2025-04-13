@@ -6,7 +6,7 @@ export default function Spinner() {
       size={50}
       thickness={100}
       speed={100}
-      color="rgba(172, 57, 59, 1)"
+      color="rgba(158, 19, 22, 1)"
     />
   );
 }

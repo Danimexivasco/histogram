@@ -45,8 +45,8 @@ export default function ThemeSwitch({ className }: ThemeSwitchProps) {
     applyTheme(newTheme);
   };
 
-  const selectedClassNames = "bg-red-100 text-red-600";
-  const selectedDarkClassNames = "bg-red-100 text-red-600 dark:bg-gray-700 dark:text-red-400";
+  const selectedClassNames = "bg-spartan-100 text-spartan-500";
+  const selectedDarkClassNames = "bg-spartan-100 text-spartan-500 dark:bg-gray-700 dark:text-spartan-400";
   const unselectedClassNames = "text-gray-500 hover:bg-gray-100 hover:text-gray-700 dark:hover:bg-gray-700 dark:hover:text-gray-300";
 
   return theme && (

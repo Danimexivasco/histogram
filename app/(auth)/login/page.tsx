@@ -142,7 +142,8 @@ export default function SignInPage() {
                   </div>
                   <Button
                     type="submit"
-                    className="w-full bg-blue-500 hover:bg-blue-600 text-white"
+                    variant={"spartan"}
+                    className="w-full"
                     disabled={isPending}
                   >
                     Login

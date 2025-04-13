@@ -41,6 +41,19 @@
   --radius-md: calc(var(--radius) - 2px);
   --radius-lg: var(--radius);
   --radius-xl: calc(var(--radius) + 4px);
+  /* Spartan color */
+  --color-spartan-50: var(--color-spartan-50);
+  --color-spartan-100: var(--color-spartan-100);
+  --color-spartan-200: var(--color-spartan-200);
+  --color-spartan-300: var(--color-spartan-300);
+  --color-spartan-400: var(--color-spartan-400);
+  --color-spartan-500: var(--color-spartan-500);
+  --color-spartan-600: var(--color-spartan-600);
+  --color-spartan-700: var(--color-spartan-700);
+  --color-spartan-800: var(--color-spartan-800);
+  --color-spartan-900: var(--color-spartan-900);
+  --color-spartan-950: var(--color-spartan-950);
+  
 }
 
 :root {
@@ -76,6 +89,18 @@
   --sidebar-accent-foreground: oklch(0.205 0 0);
   --sidebar-border: oklch(0.922 0 0);
   --sidebar-ring: oklch(0.708 0 0);
+  /* Spartan Color */
+  --color-spartan-50: oklch(96.78% 0.013 11.54);
+  --color-spartan-100: oklch(93.83% 0.026 17.63);
+  --color-spartan-200: oklch(86.65% 0.06 17.08);
+  --color-spartan-300: oklch(77.84% 0.106 19.02);
+  --color-spartan-400: oklch(65.94% 0.178 22.19);
+  --color-spartan-500: oklch(44.79% 0.171 27.09);
+  --color-spartan-600: oklch(41.29% 0.157 27.14);
+  --color-spartan-700: oklch(38.33% 0.145 26.96);
+  --color-spartan-800: oklch(32.54% 0.12 26.32);
+  --color-spartan-900: oklch(28.55% 0.103 26.23);
+  --color-spartan-950: oklch(22.31% 0.076 25.83);
 }
 
 .dark {
@@ -110,6 +135,18 @@
   --sidebar-accent-foreground: oklch(0.985 0 0);
   --sidebar-border: oklch(1 0 0 / 10%);
   --sidebar-ring: oklch(0.556 0 0);
+  /* Spartan Color */
+  --color-spartan-50: oklch(96.78% 0.013 11.54);
+  --color-spartan-100: oklch(93.83% 0.026 17.63);
+  --color-spartan-200: oklch(86.65% 0.06 17.08);
+  --color-spartan-300: oklch(77.84% 0.106 19.02);
+  --color-spartan-400: oklch(65.94% 0.178 22.19);
+  --color-spartan-500: oklch(44.79% 0.171 27.09);
+  --color-spartan-600: oklch(41.29% 0.157 27.14);
+  --color-spartan-700: oklch(38.33% 0.145 26.96);
+  --color-spartan-800: oklch(32.54% 0.12 26.32);
+  --color-spartan-900: oklch(28.55% 0.103 26.23);
+  --color-spartan-950: oklch(22.31% 0.076 25.83);
 }
 
 @layer base {
@@ -117,9 +154,6 @@
     @apply border-border outline-ring/50;
   }
   body {
-    /* background: var(--background);
-    color: var(--foreground);
-    font-family: Arial, Helvetica, sans-serif;   */
     @apply bg-background text-foreground;
   }
 }
