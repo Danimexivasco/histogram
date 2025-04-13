@@ -2,7 +2,7 @@
 
 import Link from "@/components/ui/Link";
 import Image from "next/image";
-import { LogOut } from "lucide-react";
+import { LogOut, UserRoundPen } from "lucide-react";
 import { useAuthUser, useSignOut } from "@/hooks/useAuth";
 import { cn } from "@/lib/utils";
 import { caesarDressing } from "@/assets/fonts";
@@ -15,9 +15,11 @@ import { Skeleton } from "./ui/Skeleton";
 import { HoverCard, HoverCardContent, HoverCardTrigger } from "./ui/HoverCard";
 import { Separator } from "./ui/Separator";
 import { routes } from "@/lib/routes";
+import { useGetProfile } from "@/hooks/useProfile";
 
 export default function Header() {
-  const { data: user, isFetching } = useAuthUser();
+  const { data: user } = useAuthUser();
+  const { data: profile, isFetching } = useGetProfile(user?.id ?? "");
   const singOutMutation = useSignOut();
   const withoutHeader = useHideHeader();
 
@@ -26,7 +28,7 @@ export default function Header() {
   };
 
   const isLoggedIn = !!user;
-  const isLoading = isFetching && !user;
+  const isLoading = isFetching && !profile;
 
   if (withoutHeader) return null;
 
@@ -58,7 +60,8 @@ export default function Header() {
                 <Link
                   href={routes.login}
                   asButton
-                  className="no-underline bg-blue-500 hover:bg-blue-600 dark:text-white text-black"
+                  variant="spartan"
+                  className="no-underline"
                 >Log in
                 </Link>
                 <Link
@@ -75,8 +78,8 @@ export default function Header() {
                 <HoverCard>
                   <HoverCardTrigger>
                     <Avatar className="w-12 h-12">
-                      <AvatarImage src={user.user_metadata?.avatar_url} />
-                      <AvatarFallback>{user.user_metadata?.username?.[0] ?? user.user_metadata?.full_name?.[0]}</AvatarFallback>
+                      <AvatarImage src={profile?.avatar_url ?? ""} />
+                      <AvatarFallback>{profile?.username?.[0].toUpperCase() ?? profile?.fullname?.[0].toUpperCase()}</AvatarFallback>
                     </Avatar>
                   </HoverCardTrigger>
                   <HoverCardContent
@@ -85,12 +88,20 @@ export default function Header() {
                   >
                     <div className="grid justify-items-center space-y-2">
                       <Avatar className="w-12 h-12">
-                        <AvatarImage src={user.user_metadata?.avatar_url} />
-                        <AvatarFallback>{user.user_metadata?.username?.[0] ?? user.user_metadata?.full_name?.[0]}</AvatarFallback>
+                        <AvatarImage src={profile?.avatar_url ?? ""} />
+                        <AvatarFallback>{profile?.username?.[0].toUpperCase() ?? profile?.fullname?.[0].toUpperCase()}</AvatarFallback>
                       </Avatar>
-                      <p>{user.user_metadata?.username ?? user.user_metadata?.full_name}</p>
+                      <p>{profile?.username ?? profile?.fullname}</p>
                       <small>{user.email}</small>
                     </div>
+                    <Separator />
+                    <Link
+                      href={routes.profile}
+                      className="no-underline flex gap-2 items-center"
+                    >
+                      <UserRoundPen />
+                      Edit profile
+                    </Link>
                     <Separator />
                     <Button
                       onClick={handleSignOut}
