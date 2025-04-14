@@ -20,7 +20,7 @@ import { useRouter } from "next/navigation";
 
 export default function Header() {
   const router = useRouter();
-  const { data: user } = useAuthUser();
+  const { data: user, isFetching: isUserFetching } = useAuthUser();
   const { data: profile, isFetching } = useGetProfile(user?.id ?? "");
   const singOutMutation = useSignOut();
   const withoutHeader = useHideHeader();
@@ -50,7 +50,7 @@ export default function Header() {
           />
           <h1 className={cn("text-2xl font-bold", caesarDressing.className)}>Histogram</h1>
         </Link>
-        {isLoading ? (
+        {isLoading || isUserFetching ? (
           <div className="flex items-center gap-4">
             <Skeleton className="w-28 h-12 rounded-full" />
             <Skeleton className="w-12 h-12 rounded-full" />
