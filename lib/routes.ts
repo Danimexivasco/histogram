@@ -8,4 +8,6 @@ export const routes = {
   profile:        "/profile"
 };
 
-export const routesWithoutHeader = [routes.login, routes.register];
+export const authRoutes = [routes.login, routes.register];
+
+export const protectedRoutes = [routes.profile];

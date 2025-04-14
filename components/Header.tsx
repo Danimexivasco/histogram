@@ -16,8 +16,10 @@ import { HoverCard, HoverCardContent, HoverCardTrigger } from "./ui/HoverCard";
 import { Separator } from "./ui/Separator";
 import { routes } from "@/lib/routes";
 import { useGetProfile } from "@/hooks/useProfile";
+import { useRouter } from "next/navigation";
 
 export default function Header() {
+  const router = useRouter();
   const { data: user } = useAuthUser();
   const { data: profile, isFetching } = useGetProfile(user?.id ?? "");
   const singOutMutation = useSignOut();
@@ -25,6 +27,7 @@ export default function Header() {
 
   const handleSignOut = async () => {
     await singOutMutation.mutateAsync();
+    router.refresh();
   };
 
   const isLoggedIn = !!user;

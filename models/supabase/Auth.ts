@@ -1,5 +1,7 @@
-import { supabase } from "@/lib/supabase/client";
+import { createClient } from "@/lib/supabase/client";
 import { ProfileService } from "@/services/Profile";
+
+const supabase = await createClient();
 
 export class AuthModel {
   static async signUp({ email, password, username }: {email: string, password: string, username: string}) {

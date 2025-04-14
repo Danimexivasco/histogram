@@ -1,10 +1,10 @@
 import { useEffect } from "react";
 import { useRouter } from "next/navigation";
-import { supabase } from "@/lib/supabase/client";
 import { ProfileService } from "@/services/Profile";
 import { ToastService } from "@/services/Toast";
 import { routes } from "@/lib/routes";
 import { User } from "@supabase/supabase-js";
+import { createClient } from "@/lib/supabase/client";
 
 const handleGoogleLoginProfileCreation = async (user: User) => {
   const profileExist = await ProfileService.checkIfProfileExists({
@@ -30,6 +30,8 @@ const handleGoogleLoginProfileCreation = async (user: User) => {
     }
   }
 };
+
+const supabase = await createClient();
 
 export const useAuthStateChange = () => {
   const router = useRouter();

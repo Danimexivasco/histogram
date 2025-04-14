@@ -1,5 +1,7 @@
-import { supabase } from "@/lib/supabase/client";
+import { createClient } from "@/lib/supabase/client";
 import { Profile } from "@/schema/profile";
+
+const supabase = await createClient();
 
 export class ProfileModel {
   static async getById({ user_id }: {user_id: Profile["user_id"]}): Promise<Profile | null> {

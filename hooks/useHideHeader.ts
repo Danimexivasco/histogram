@@ -1,10 +1,10 @@
-import { routesWithoutHeader } from "@/lib/routes";
+import { authRoutes } from "@/lib/routes";
 import { usePathname } from "next/navigation";
 
 export default function useHideHeader() {
   const pathname = usePathname();
 
-  const hideElements = routesWithoutHeader.includes(pathname);
+  const hideElements = authRoutes.includes(pathname);
 
   return hideElements;
 }

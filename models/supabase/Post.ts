@@ -1,4 +1,4 @@
-import { supabase } from "@/lib/supabase/client";
+import { createClient } from "@/lib/supabase/client";
 
 export interface Post {
   id: string;
@@ -7,6 +7,8 @@ export interface Post {
   caption?: string;
   created_at: string;
 }
+
+const supabase = await createClient();
 
 export class PostModel {
   static async getAll(): Promise<Post[]> {
