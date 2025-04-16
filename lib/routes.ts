@@ -5,9 +5,10 @@ export const routes = {
   confirmEmail:   "/confirm-email",
   forgotPassword: "/forgot-password",
   resetPassword:  "/reset-password",
-  profile:        "/profile"
+  profile:        "/:username",
+  editProfile:    "/:username/edit"
 };
 
 export const authRoutes = [routes.login, routes.register];
 
-export const protectedRoutes = [routes.profile];
+export const protectedRoutes = [routes.editProfile];
