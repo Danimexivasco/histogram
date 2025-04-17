@@ -61,7 +61,7 @@ export default function ThemeSwitch({ className }: ThemeSwitchProps) {
         aria-label="Light mode"
         title="Switch to light mode"
       >
-        <SunMedium size={20} />
+        <SunMedium className="w-4 h-4 md:w-5 md:h-5" />
       </button>
 
       <button
@@ -74,7 +74,7 @@ export default function ThemeSwitch({ className }: ThemeSwitchProps) {
         aria-label="Dark mode"
         title="Switch to dark mode"
       >
-        <Moon size={20} />
+        <Moon className="w-4 h-4 md:w-5 md:h-5" />
       </button>
 
       <button
@@ -87,7 +87,7 @@ export default function ThemeSwitch({ className }: ThemeSwitchProps) {
         aria-label="System preference"
         title="Switch to system preference"
       >
-        <Laptop size={20} />
+        <Laptop className="w-4 h-4 md:w-5 md:h-5" />
       </button>
     </div>
   );
