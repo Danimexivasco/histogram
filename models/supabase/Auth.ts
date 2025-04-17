@@ -1,5 +1,6 @@
 import { createClient } from "@/lib/supabase/client";
 import { ProfileService } from "@/services/Profile";
+import { User } from "@supabase/supabase-js";
 
 const supabase = await createClient();
 
@@ -92,5 +93,26 @@ export class AuthModel {
     if (!data.user) throw new Error("No user found");
 
     return data.user;
+  }
+
+  static async deleteUser({ id }: { id: User["id"] }) {
+    const res = await fetch("/api/auth", {
+      method: "DELETE",
+      body:   JSON.stringify({
+        id
+      })
+    });
+
+    if (!res.ok) {
+      throw new Error("Error deleting user");
+    }
+
+    const userId = await res.json();
+
+    if (userId.error) {
+      throw new Error("Error deleting user");
+    }
+
+    return userId;
   }
 }

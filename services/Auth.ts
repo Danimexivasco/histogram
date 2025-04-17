@@ -1,6 +1,7 @@
 import { AuthModel } from "@/models/supabase/Auth";
 import { validateAuthForm, validatePartialAuthForm } from "@/schema/authForm";
 import { validateResetPassword } from "@/schema/resetPassword";
+import { User } from "@supabase/supabase-js";
 
 export class AuthService {
   static async signUp({ email, password, username }: {email: string, password: string, username: string}) {
@@ -72,5 +73,11 @@ export class AuthService {
 
   static async getCurrentUser() {
     return await AuthModel.getCurrentUser();
+  }
+
+  static async deleteUser({ id }: { id: User["id"] }) {
+    return await AuthModel.deleteUser({
+      id
+    });
   }
 }
