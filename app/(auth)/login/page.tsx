@@ -120,7 +120,7 @@ export default function SignInPage() {
                       placeholder="johndoe@example.com"
                       defaultValue={actionState?.email}
                     />
-                    {errors?.email && <small className="text-red-500">{errors.email[0]}</small>}
+                    {errors?.email && <small className="text-destructive">{errors.email[0]}</small>}
                   </div>
                   <div className="grid gap-2">
                     <div className="flex items-center">
@@ -138,7 +138,7 @@ export default function SignInPage() {
                       placeholder="••••••••"
                       defaultValue={actionState?.password}
                     />
-                    {errors?.password && <small className="text-red-500">{errors.password[0]}</small>}
+                    {errors?.password && <small className="text-destructive">{errors.password[0]}</small>}
                   </div>
                   <Button
                     type="submit"

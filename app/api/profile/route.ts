@@ -17,7 +17,7 @@ export async function POST(req: NextRequest) {
 
     if (profileError) {
       return NextResponse.json({
-        error: profileError
+        error: "Something went wrong creating the profile"
       }, {
         status: 500
       });

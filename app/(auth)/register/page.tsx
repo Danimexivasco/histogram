@@ -96,7 +96,7 @@ export default function RegisterPage() {
                       placeholder="CoolUsername"
                       defaultValue={actionState?.username}
                     />
-                    {errors?.username && <small className="text-red-500">{errors.username[0]}</small>}
+                    {errors?.username && <small className="text-destructive">{errors.username[0]}</small>}
                   </div>
                   <div className="grid gap-2">
                     <Label htmlFor="email">Email</Label>
@@ -107,7 +107,7 @@ export default function RegisterPage() {
                       placeholder="johndoe@example.com"
                       defaultValue={actionState?.email}
                     />
-                    {errors?.email && <small className="text-red-500">{errors.email[0]}</small>}
+                    {errors?.email && <small className="text-destructive">{errors.email[0]}</small>}
                   </div>
                   <div className="grid gap-2">
                     <Label htmlFor="password">Password</Label>
@@ -118,7 +118,7 @@ export default function RegisterPage() {
                       placeholder="Password with at least 6 characters"
                       defaultValue={actionState?.password}
                     />
-                    {errors?.password && <small className="text-red-500">{errors.password[0]}</small>}
+                    {errors?.password && <small className="text-destructive">{errors.password[0]}</small>}
                   </div>
                   <Button
                     type="submit"

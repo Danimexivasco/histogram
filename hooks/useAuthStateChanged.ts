@@ -1,4 +1,4 @@
-import { useEffect } from "react";
+import { useEffect, useRef } from "react";
 import { useRouter } from "next/navigation";
 import { ProfileService } from "@/services/Profile";
 import { ToastService } from "@/services/Toast";
@@ -19,7 +19,7 @@ const handleGoogleLoginProfileCreation = async (user: User) => {
       await ProfileService.create({
         id:         id,
         fullname:   full_name ?? "",
-        username:   full_name ?? "",
+        username:   full_name.toLowerCase().replace(/\s/g, "_") ?? "",
         avatar_url: avatar_url ?? picture,
         email:      email
       });
@@ -35,11 +35,14 @@ const supabase = await createClient();
 
 export const useAuthStateChange = () => {
   const router = useRouter();
+  const hasHandled = useRef(false);
 
   useEffect(() => {
     const { data: authListener } = supabase.auth.onAuthStateChange(
       async (event, session) => {
-        if (event === "SIGNED_IN" && session?.user) {
+        if (event === "SIGNED_IN" && session?.user && !hasHandled.current) {
+          hasHandled.current = true;
+
           const user = session.user;
 
           if (user?.app_metadata.provider === "google") {

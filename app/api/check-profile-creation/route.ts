@@ -11,16 +11,8 @@ export async function POST(req: NextRequest) {
       .eq("user_id", id)
       .single();
 
-    if (profileError) {
-      return NextResponse.json({
-        error: profileError
-      }, {
-        status: 500
-      });
-    }
-
     return NextResponse.json({
-      exists: true
+      exists: profileError ? false : true
     });
 
   } catch {
