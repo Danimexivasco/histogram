@@ -14,6 +14,16 @@ export class ProfileModel {
     return data;
   }
 
+  static async getByUsername({ username }: {username: Profile["username"]}): Promise<Profile | null> {
+    const { data, error } = await supabase.from("profiles").select("*").eq("username", username).single();
+
+    if (error) {
+      return null;
+    }
+
+    return data;
+  }
+
   static async create({ id, username, email, fullname, avatar_url }: Partial<Profile>): Promise<string | null> {
     const res = await fetch("/api/profile", {
       method: "POST",
@@ -27,8 +37,6 @@ export class ProfileModel {
     });
 
     const profileId = await res.json();
-
-    if (profileId.error) throw new Error("Error creating the profile");
 
     if (profileId.error) {
       return null;

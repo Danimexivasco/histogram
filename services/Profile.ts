@@ -12,6 +12,16 @@ export class ProfileService {
     return profile;
   }
 
+  static async getByUsername({ username }: {username: Profile["username"]}) {
+    const profile = await ProfileModel.getByUsername({
+      username
+    });
+
+    if (!profile) throw new Error("Profile not found");
+
+    return profile;
+  }
+
   static async create({ id, username, email, fullname, avatar_url }: Partial<Profile>) {
     const { error } = validatePartialProfile({
       id,
@@ -43,9 +53,7 @@ export class ProfileService {
       user_id
     });
 
-    if (!profile) return false;
-
-    return true;
+    return !!profile;
   }
 
   static async update({ user_id, username, fullname, bio, avatar_url, updated_at }: Partial<Profile>) {

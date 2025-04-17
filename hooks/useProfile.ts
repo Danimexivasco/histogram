@@ -8,7 +8,7 @@ const PROFILE_KEYS = {
 };
 const FIVE_MINUTES = 5 * 60 * 1000;
 
-export const useGetProfile = (user_id: string) => {
+export const useGetProfile = (user_id: Profile["user_id"]) => {
   return useQuery({
     queryKey: [...PROFILE_KEYS.profile, user_id],
     queryFn:  () => ProfileService.getById({
@@ -18,6 +18,20 @@ export const useGetProfile = (user_id: string) => {
     refetchOnWindowFocus: true,
     refetchOnMount:       true,
     enabled:              !!user_id,
+    retry:                1
+  });
+};
+
+export const useGetProfileByUsername = (username: Profile["username"]) => {
+  return useQuery({
+    queryKey: [...PROFILE_KEYS.profile, username],
+    queryFn:  () => ProfileService.getByUsername({
+      username
+    }),
+    staleTime:            FIVE_MINUTES,
+    refetchOnWindowFocus: true,
+    refetchOnMount:       true,
+    enabled:              !!username,
     retry:                1
   });
 };
