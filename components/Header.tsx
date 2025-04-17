@@ -1,29 +1,29 @@
 "use client";
 
-import Link from "@/components/ui/Link";
 import Image from "next/image";
-import { LogOut, UserRoundPen } from "lucide-react";
-import { useAuthUser, useSignOut } from "@/hooks/useAuth";
-import { cn } from "@/lib/utils";
+import { HeartIcon, LogOut, UserRoundPen } from "lucide-react";
 import { caesarDressing } from "@/assets/fonts";
-import useHideHeader from "@/hooks/useHideHeader";
-import Container from "./Container";
-import ThemeSwitch from "./ThemeSwitch";
-import { Button } from "./ui/Button";
-import { Avatar, AvatarFallback, AvatarImage } from "./ui/Avatar";
+import { cn } from "@/lib/utils";
+import { routes } from "@/lib/routes";
+import Link from "./ui/Link";
 import { Skeleton } from "./ui/Skeleton";
 import { HoverCard, HoverCardContent, HoverCardTrigger } from "./ui/HoverCard";
 import { Separator } from "./ui/Separator";
-import { routes } from "@/lib/routes";
+import { Button } from "./ui/Button";
+import Container from "./Container";
+import ThemeSwitch from "./ThemeSwitch";
+import { useAuthUser, useSignOut } from "@/hooks/useAuth";
+import useHideLayoutElements from "@/hooks/useHideLayoutElements";
 import { useGetProfile } from "@/hooks/useProfile";
 import { useRouter } from "next/navigation";
+import Avatar from "./Avatar";
 
 export default function Header() {
   const router = useRouter();
   const { data: user, isFetching: isUserFetching } = useAuthUser();
   const { data: profile, isFetching } = useGetProfile(user?.id ?? "");
   const singOutMutation = useSignOut();
-  const withoutHeader = useHideHeader();
+  const withoutHeader = useHideLayoutElements();
 
   const handleSignOut = async () => {
     await singOutMutation.mutateAsync();
@@ -31,13 +31,13 @@ export default function Header() {
   };
 
   const isLoggedIn = !!user;
-  const isLoading = isFetching && !profile;
+  const isLoading = (isFetching || isUserFetching) && !profile;
 
   if (withoutHeader) return null;
 
   return (
-    <header>
-      <Container className="flex items-center justify-between py-4">
+    <header className="sticky top-0 z-50">
+      <Container className="flex items-center justify-between py-2 md:py-4 bg-background">
         <Link
           href={routes.home}
           className="flex items-center gap-2 no-underline"
@@ -47,13 +47,14 @@ export default function Header() {
             alt="Histogram"
             width={40}
             height={40}
+            className="w-8 h-8 md:w-10 md:h-10"
           />
-          <h1 className={cn("text-2xl font-bold", caesarDressing.className)}>Histogram</h1>
+          <h1 className={cn("font-bold", caesarDressing.className)}>Histogram</h1>
         </Link>
-        {isLoading || isUserFetching ? (
+        {isLoading ? (
           <div className="flex items-center gap-4">
             <Skeleton className="w-28 h-12 rounded-full" />
-            <Skeleton className="w-12 h-12 rounded-full" />
+            <Skeleton className="w-12 h-12 rounded-full hidden md:block" />
           </div>
         ) :
           <div className="flex items-center gap-4">
@@ -64,55 +65,58 @@ export default function Header() {
                   href={routes.login}
                   asButton
                   variant="spartan"
-                  className="no-underline"
+                  className="no-underline hidden md:block"
                 >Log in
                 </Link>
                 <Link
                   href={routes.register}
                   asButton
-                  className="no-underline"
+                  className="no-underline hidden md:block"
                 >Register
                 </Link>
               </div>
             }
             {isLoggedIn &&
               <div className="flex items-center gap-4">
-                <ThemeSwitch />
-                <HoverCard>
-                  <HoverCardTrigger>
-                    <Avatar className="w-12 h-12">
-                      <AvatarImage src={profile?.avatar_url ?? ""} />
-                      <AvatarFallback>{profile?.username?.[0].toUpperCase() ?? profile?.fullname?.[0].toUpperCase()}</AvatarFallback>
-                    </Avatar>
-                  </HoverCardTrigger>
-                  <HoverCardContent
-                    className="space-y-6"
-                    align="end"
-                  >
-                    <div className="grid justify-items-center space-y-2">
-                      <Avatar className="w-12 h-12">
-                        <AvatarImage src={profile?.avatar_url ?? ""} />
-                        <AvatarFallback>{profile?.username?.[0].toUpperCase() ?? profile?.fullname?.[0].toUpperCase()}</AvatarFallback>
-                      </Avatar>
-                      <p>{profile?.username ?? profile?.fullname}</p>
-                      <small>{user.email}</small>
-                    </div>
-                    <Separator />
-                    <Link
-                      href={routes.profile}
-                      className="no-underline flex gap-2 items-center"
+                <HeartIcon className="md:hidden"/>
+                <ThemeSwitch className="hidden md:block" />
+                <div className="hidden md:block">
+                  <HoverCard>
+                    <HoverCardTrigger>
+                      <Avatar
+                        src={profile?.avatar_url ?? ""}
+                        fallback={profile?.username?.[0].toUpperCase() ?? profile?.fullname?.[0].toUpperCase() ?? ""}
+                      />
+                    </HoverCardTrigger>
+                    <HoverCardContent
+                      className="space-y-6"
+                      align="end"
                     >
-                      <UserRoundPen />
-                      Edit profile
-                    </Link>
-                    <Separator />
-                    <Button
-                      onClick={handleSignOut}
-                      className="w-full"
-                    ><LogOut color="red"/> Log out
-                    </Button>
-                  </HoverCardContent>
-                </HoverCard>
+                      <div className="grid justify-items-center space-y-2">
+                        <Avatar
+                          src={profile?.avatar_url ?? ""}
+                          fallback={profile?.username?.[0].toUpperCase() ?? profile?.fullname?.[0].toUpperCase() ?? ""}
+                        />
+                        <p>{profile?.username ?? profile?.fullname}</p>
+                        <small>{profile?.email ?? user.email}</small>
+                      </div>
+                      <Separator />
+                      <Link
+                        href={routes.editProfile.replace(":username", profile?.username ?? "")}
+                        className="no-underline flex gap-2 items-center"
+                      >
+                        <UserRoundPen />
+                        Edit profile
+                      </Link>
+                      <Separator />
+                      <Button
+                        onClick={handleSignOut}
+                        className="w-full"
+                      ><LogOut className="text-spartan-400"/> Log out
+                      </Button>
+                    </HoverCardContent>
+                  </HoverCard>
+                </div>
               </div>
             }
           </div>
