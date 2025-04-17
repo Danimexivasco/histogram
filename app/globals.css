@@ -165,7 +165,7 @@
 
 @layer components {
   .page-margins {
-    @apply mt-[72px] md:mt-0 mb-14 md:mb-0;
+    @apply mb-24 md:mb-0;
   }
 }
 
