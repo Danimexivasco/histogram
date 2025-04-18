@@ -1,7 +1,7 @@
 import { default as NextLink } from "next/link";
 import { buttonVariants } from "./Button";
 import { VariantProps } from "class-variance-authority";
-import { cn } from "@/lib/utils";
+import { cn } from "@/lib/utils/cn";
 
 type LinkProps = VariantProps<typeof buttonVariants> & {
   href: string;

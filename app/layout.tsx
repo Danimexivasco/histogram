@@ -2,7 +2,7 @@ import type { Metadata } from "next";
 import { cookies } from "next/headers";
 import { Geist, Geist_Mono } from "next/font/google";
 import { Toaster } from "sonner";
-import { cn } from "@/lib/utils";
+import { cn } from "@/lib/utils/cn";
 import Providers from "@/providers";
 import Header from "@/components/Header";
 import "./globals.css";

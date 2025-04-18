@@ -3,7 +3,7 @@
 import Image from "next/image";
 import { HeartIcon, LogOut, UserRoundPen } from "lucide-react";
 import { caesarDressing } from "@/assets/fonts";
-import { cn } from "@/lib/utils";
+import { cn } from "@/lib/utils/cn";
 import { routes } from "@/lib/routes";
 import Link from "./ui/Link";
 import { Skeleton } from "./ui/Skeleton";

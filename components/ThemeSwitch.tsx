@@ -1,7 +1,7 @@
 import { useState, useEffect } from "react";
 import { SunMedium, Moon, Laptop } from "lucide-react";
 import Cookies from "js-cookie";
-import { cn } from "@/lib/utils";
+import { cn } from "@/lib/utils/cn";
 
 type Theme = "light" | "dark" | "system";
 
