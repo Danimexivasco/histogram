@@ -5,7 +5,7 @@ export const profileSchema = z.object({
   id:       z.string(),
   user_id:  z.string(),
   email:    z.string().email(),
-  username: z.string() .min(3, "Username must contain at least 3 characters")
+  username: z.string().min(3, "Username must contain at least 3 characters")
     .max(30, "Username must not exceed 30 characters")
     .regex(/^[a-z0-9_]+$/, "Username can only contain lowercase letters, numbers, and underscores"),
   fullname:   z.string().optional(),
