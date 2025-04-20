@@ -1,3 +1,4 @@
+import { apiRoutes } from "@/lib/apiRoutes";
 import { createClient } from "@/lib/supabase/client";
 import { ProfileService } from "@/services/Profile";
 import { User } from "@supabase/supabase-js";
@@ -96,7 +97,7 @@ export class AuthModel {
   }
 
   static async deleteUser({ id }: { id: User["id"] }) {
-    const res = await fetch("/api/auth", {
+    const res = await fetch(apiRoutes.auth, {
       method: "DELETE",
       body:   JSON.stringify({
         id

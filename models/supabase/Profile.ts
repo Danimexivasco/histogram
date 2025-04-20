@@ -1,3 +1,4 @@
+import { apiRoutes } from "@/lib/apiRoutes";
 import { createClient } from "@/lib/supabase/client";
 import { Profile } from "@/schema/profile";
 
@@ -25,7 +26,7 @@ export class ProfileModel {
   }
 
   static async create({ id, username, email, fullname, avatar_url }: Partial<Profile>): Promise<string | null> {
-    const res = await fetch("/api/profile", {
+    const res = await fetch(apiRoutes.profile, {
       method: "POST",
       body:   JSON.stringify({
         id,
@@ -46,7 +47,7 @@ export class ProfileModel {
   }
 
   static async checkIfProfileExists({ user_id }: {user_id: Profile["user_id"]}): Promise<boolean> {
-    const profilePromise = await fetch("/api/check-profile-creation", {
+    const profilePromise = await fetch(apiRoutes.checkProfileCreation, {
       method: "POST",
       body:   JSON.stringify({
         id: user_id
@@ -75,7 +76,7 @@ export class ProfileModel {
   }
 
   static async uploadAvatar(formData: FormData): Promise<{error: string, avatarUrl: string} | null> {
-    const avatarPromise = await fetch("/api/upload-avatar", {
+    const avatarPromise = await fetch(apiRoutes.uploadAvatar, {
       method: "POST",
       body:   formData
     });
