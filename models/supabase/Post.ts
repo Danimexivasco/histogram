@@ -1,12 +1,5 @@
 import { createClient } from "@/lib/supabase/client";
-
-export interface Post {
-  id: string;
-  user_id: string;
-  image_url: string;
-  caption?: string;
-  created_at: string;
-}
+import { Post } from "@/schema/post";
 
 const supabase = await createClient();
 
@@ -23,10 +16,10 @@ export class PostModel {
     return data;
   }
 
-  static async create({ user_id, image_url, caption }: Partial<Post>): Promise<Post | null> {
+  static async create({ user_id, media, caption }: Partial<Post>): Promise<Post | null> {
     const { data, error } = await supabase.from("posts").insert([{
       user_id,
-      image_url,
+      media,
       caption
     }]).select("*").single();
 

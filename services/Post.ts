@@ -1,14 +1,15 @@
-import { Post, PostModel } from "@/models/supabase/Post";
+import { PostModel } from "@/models/supabase/Post";
+import { Post } from "@/schema/post";
 
 export class PostService {
   static async getAll(): Promise<Post[]> {
     return await PostModel.getAll();
   }
 
-  static async create({ user_id, image_url, caption }: Partial<Post>): Promise<Post | null> {
+  static async create({ user_id, media, caption }: Partial<Post>): Promise<Post> {
     const post = await PostModel.create({
       user_id,
-      image_url,
+      media,
       caption
     });
 
