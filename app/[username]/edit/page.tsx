@@ -273,7 +273,7 @@ export default function ProfileConfigPage() {
             defaultValue={profile?.bio ?? ""}
             onInput={handleBioInput}
           />
-          <small className="text-right">{charCount} / 150</small>
+          <small className="text-right">{charCount} / {BIO_MAX_LENGTH}</small>
         </div>
         <div className="flex justify-end">
           <Button
