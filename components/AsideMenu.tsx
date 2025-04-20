@@ -9,7 +9,7 @@ import {
   PlusIcon,
   SearchIcon
 } from "lucide-react";
-import { cn } from "@/lib/utils";
+import { cn } from "@/lib/utils/cn";
 import { usePathname } from "next/navigation";
 import Avatar from "./Avatar";
 import { useAuthUser } from "@/hooks/useAuth";
@@ -61,7 +61,7 @@ export default function AsideMenu() {
       {user &&
       <div className="space-y-8">
         <Link
-          href={routes.home}
+          href={routes.createPost}
           className="grid place-items-center no-underline space-y-0.5"
         >
           <div className="bg-spartan-500 p-3 rounded-full shadow text-white">
@@ -78,6 +78,7 @@ export default function AsideMenu() {
           <Avatar
             src={profile?.avatar_url ?? ""}
             fallback={profile?.username?.[0].toUpperCase() ?? profile?.fullname?.[0].toUpperCase() ?? ""}
+            className={cn(pathname === `/${profile?.username}` && "ring-2 ring-spartan-500")}
           />
           <small>Profile</small>
         </Link>

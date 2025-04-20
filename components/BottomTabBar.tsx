@@ -13,7 +13,7 @@ import { Avatar, AvatarFallback, AvatarImage } from "./ui/Avatar";
 import Link from "./ui/Link";
 import { routes } from "@/lib/routes";
 import { usePathname } from "next/navigation";
-import { cn } from "@/lib/utils";
+import { cn } from "@/lib/utils/cn";
 import { Skeleton } from "./ui/Skeleton";
 import useHideLayoutElements from "@/hooks/useHideLayoutElements";
 
@@ -38,11 +38,16 @@ export default function BottomTabBar() {
         />
       </Link>
       <SearchIcon size={26} />
-      <div className="bg-spartan-500 p-3 rounded-full -translate-y-4 shadow text-white">
-        <PlusIcon
-          size={30}
-        />
-      </div>
+      <Link
+        href={routes.createPost}
+        className="-translate-y-4"
+      >
+        <div className="bg-spartan-500 p-3 rounded-full shadow-sm shadow-muted-foreground text-white">
+          <PlusIcon
+            size={30}
+          />
+        </div>
+      </Link>
       <BookOpenIcon size={26} />
       {fetchingUser && <Skeleton className="w-8 h-8 rounded-full" />}
       {noUser &&
