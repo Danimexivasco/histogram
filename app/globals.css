@@ -176,3 +176,7 @@
   @apply grid-cols-[repeat(auto-fit,_minmax(12rem,_1fr))];
 }
 
+.swiper-pagination-bullet-active {
+  background-color: var(--color-spartan-500) !important;
+}
+
