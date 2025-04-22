@@ -176,6 +176,13 @@
   @apply grid-cols-[repeat(auto-fit,_minmax(12rem,_1fr))];
 }
 
+
+.swiper-pagination-fraction, .swiper-pagination-custom, .swiper-horizontal > .swiper-pagination-bullets, .swiper-pagination-bullets.swiper-pagination-horizontal {
+  width: fit-content !important;
+  left: 50% !important;
+  transform: translateX(-50%) !important;
+}
+
 .swiper-pagination-bullet-active {
   background-color: var(--color-spartan-500) !important;
 }
