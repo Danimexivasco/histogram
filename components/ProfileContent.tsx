@@ -137,7 +137,7 @@ export default function ProfileContent({ username }: ProfileContentProps) {
   return (
     <Container
       centered
-      className="page-margins !px-0"
+      className="page-margins px-0"
     >
       <Header profile={profile}/>
     </Container>

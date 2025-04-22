@@ -182,7 +182,7 @@ export default function ProfileConfigPage() {
   }
 
   return profile && (
-    <Container className="page-margins max-w-md py-4 md:py-12 mx-auto space-y-8">
+    <Container className="page-margins py-4 md:py-12 mx-auto space-y-8">
       <form
         action={submitAction}
         className="mx-auto space-y-6 text-center"

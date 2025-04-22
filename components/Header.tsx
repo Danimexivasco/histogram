@@ -37,7 +37,10 @@ export default function Header() {
 
   return (
     <header className="sticky top-0 z-50">
-      <Container className="flex items-center justify-between py-2 md:py-4 bg-background">
+      <Container
+        fullWidth
+        className="flex items-center justify-between py-2 md:py-4 bg-background"
+      >
         <Link
           href={routes.home}
           className="flex items-center gap-2 no-underline"
