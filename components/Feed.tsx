@@ -1,15 +1,11 @@
-import Image from "next/image";
-
-import { caesarDressing } from "@/assets/fonts";
-import { cn } from "@/lib/utils/cn";
 import { Post } from "@/schema/post";
 import { Profile } from "@/schema/profile";
-import Container from "./Container";
+import FeedPost from "./FeedPost";
+import NoPosts from "./NoPosts";
 
 import "swiper/css";
 import "swiper/css/navigation";
 import "swiper/css/pagination";
-import FeedPost from "./FeedPost";
 
 export type PostWithProfile = Post & {
   profile?: Profile;
@@ -32,17 +28,7 @@ export default function Feed({ posts = [] }: FeedProps) {
               post={post}
             /> ))
           :
-          <Container className="flex flex-col items-center space-y-4">
-            <p className={cn("text-3xl text-muted-foreground", caesarDressing.className)}>No posts</p>
-            <Image
-              src="/no_results.gif"
-              alt="No results"
-              width={500}
-              height={500}
-              unoptimized={true}
-              className="aspect-video rounded"
-            />
-          </Container>
+          <NoPosts />
       }
     </div>
   );
