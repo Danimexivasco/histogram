@@ -1,6 +1,13 @@
-import { useQuery, useMutation, useQueryClient } from "@tanstack/react-query";
+import {
+  useQuery,
+  useMutation,
+  useQueryClient,
+  useQueries
+} from "@tanstack/react-query";
 import { PostService } from "@/services/Post";
 import { Post } from "@/schema/post";
+import { ProfileService } from "@/services/Profile";
+import { FIVE_MINUTES } from "@/lib/constants";
 
 const POST_KEYS = {
   posts: ["posts"]
@@ -66,4 +73,29 @@ export const useCreatePost = () => {
       });
     }
   });
+};
+
+export const usePostsWithProfileInfo = (posts: Post[]) => {
+  const profileQueries = useQueries({
+    queries: posts?.map((post) => ({
+      queryKey: [POST_KEYS.posts, post.id],
+      queryFn:  () => ProfileService.getById({
+        user_id: post.user_id
+      }),
+      enabled:              !!post.user_id,
+      staleTime:            FIVE_MINUTES,
+      refetchOnWindowFocus: true,
+      refetchOnMount:       true,
+      retry:                1
+    })) ?? []
+  });
+
+  const postsWithProfileInfo = posts?.map((post, index) => ({
+    ...post,
+    profile:          profileQueries[index]?.data,
+    profileIsLoading: profileQueries[index]?.isLoading,
+    profileError:     profileQueries[index]?.error
+  }));
+
+  return postsWithProfileInfo;
 };
