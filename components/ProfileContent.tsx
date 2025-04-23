@@ -8,18 +8,28 @@ import Container from "./Container";
 import Avatar from "./Avatar";
 import Spinner from "./ui/Spinner";
 import { Button } from "./ui/Button";
-import { LogOutIcon } from "lucide-react";
+import { GalleryVerticalIcon, Grid3X3Icon, LogOutIcon } from "lucide-react";
 import { useAuthUser, useSignOut } from "@/hooks/useAuth";
 import { useRouter } from "next/navigation";
 import { Popover, PopoverContent, PopoverTrigger } from "./ui/Popover";
 import { Separator } from "./ui/Separator";
+import PostsGrid from "./PostsGrid";
+import { useEffect, useState } from "react";
+import Feed, { PostWithProfile } from "./Feed";
+import { usePostsByUser } from "@/hooks/usePosts";
+import { cn } from "@/lib/utils/cn";
 
 type ProfileContentProps = {
   username: string;
 };
 
-// TODO: Add PostService, followers and following counters and fix desktop version of that part
-function Header({ profile }: {profile: Profile}) {
+type ProfileHeaderProps = {
+  profile: Profile,
+  postsLength: number
+};
+
+// TODO: Add PostService, followers and following counters
+function Header({ profile, postsLength = 0 }: ProfileHeaderProps) {
   const router = useRouter();
   const singOutMutation = useSignOut();
   const { data: user } = useAuthUser();
@@ -107,7 +117,7 @@ function Header({ profile }: {profile: Profile}) {
         <Separator />
         <div className="flex items-center justify-between px-4 py-2">
           <div className="grid place-items-center">
-            <p>X</p>
+            <p>{postsLength}</p>
             <p className="text-muted-foreground">posts</p>
           </div>
           <div className="grid place-items-center">
@@ -125,8 +135,55 @@ function Header({ profile }: {profile: Profile}) {
   );
 }
 
+function Posts({ posts }: {posts: PostWithProfile[] | null}) {
+  const [layout, setLayout] = useState<"grid" | "feed">("grid");
+
+  return (
+    <section
+      id="posts"
+      aria-label="posts-section"
+    >
+      <div className="flex items-center gap-8 justify-center px-4 py-2">
+        <Button
+          variant="ghost"
+          size="lg"
+          onClick={() => setLayout("grid")}
+        ><Grid3X3Icon className={cn("!w-8 !h-8", layout === "grid" && "text-spartan-500")}/>
+        </Button>
+        <Button
+          variant="ghost"
+          onClick={() => setLayout("feed")}
+        ><GalleryVerticalIcon className={cn("!w-8 !h-8", layout === "feed" && "text-spartan-500")}/>
+        </Button>
+      </div>
+      <Separator />
+      {posts && layout === "feed" &&
+      <div className="mt-4">
+        <Feed posts={posts}/>
+      </div>
+      }
+      {posts && layout === "grid" && <PostsGrid posts={posts}/>}
+    </section>
+  );
+}
+
 export default function ProfileContent({ username }: ProfileContentProps) {
-  const { data: profile, isFetching } = useGetProfileByUsername(username);
+  const { data: profile } = useGetProfileByUsername(username);
+  const { data: posts, isFetching } = usePostsByUser(profile?.user_id ?? "");
+  const [postsWithProfielInfo, setPostsWithProfileInfo] = useState<PostWithProfile[]>([]);
+
+  useEffect(() => {
+    if(profile && posts && posts.length > 0) {
+      setPostsWithProfileInfo(
+        posts.map((post) => ({
+          ...post,
+          profile:          profile,
+          profileIsLoading: false,
+          profileError:     null
+        }))
+      );
+    }
+  }, [profile, posts]);
 
   if (!profile || isFetching) return (
     <Container className="grid place-items-center min-h-screen">
@@ -139,7 +196,11 @@ export default function ProfileContent({ username }: ProfileContentProps) {
       centered
       className="page-margins px-0"
     >
-      <Header profile={profile}/>
+      <Header
+        profile={profile}
+        postsLength={posts?.length ?? 0}
+      />
+      <Posts posts={postsWithProfielInfo ?? null}/>
     </Container>
   );
 }
