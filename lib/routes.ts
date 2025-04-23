@@ -9,7 +9,8 @@ export const routes = {
   profile:     "/:username",
   editProfile: "/:username/edit",
 
-  createPost: "/post/create"
+  post:       "/:username/post/:id",
+  createPost: "/:username/post/create"
 };
 
 export const authRoutes = [routes.login, routes.register];
