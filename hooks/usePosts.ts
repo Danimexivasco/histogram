@@ -99,3 +99,22 @@ export const usePostsWithProfileInfo = (posts: Post[]) => {
 
   return postsWithProfileInfo;
 };
+
+export const usePostsByUser = (user_id: Post["user_id"]) => {
+  return useQuery({
+    queryKey:             [POST_KEYS.posts, user_id],
+    queryFn:              () => PostService.getByUserId(user_id),
+    staleTime:            FIVE_MINUTES,
+    refetchOnWindowFocus: true,
+    refetchOnMount:       true,
+    enabled:              !!user_id,
+    retry:                1
+  });
+};
+
+export const usePostById = (id: Post["id"]) => {
+  return useQuery({
+    queryKey: [POST_KEYS.posts, id],
+    queryFn:  () => PostService.getByPostId(id)
+  });
+};
