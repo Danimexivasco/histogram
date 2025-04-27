@@ -61,7 +61,7 @@ export default function AsideMenu() {
       {user &&
       <div className="space-y-8">
         <Link
-          href={routes.createPost}
+          href={routes.createPost.replace(":username", profile?.username ?? "")}
           className="grid place-items-center no-underline space-y-0.5"
         >
           <div className="bg-spartan-500 p-3 rounded-full shadow text-white">

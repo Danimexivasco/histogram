@@ -30,7 +30,7 @@ export default function BottomTabBar() {
   if (withoutBottomTabBar) return null;
 
   return (
-    <section className="flex items-center justify-around md:hidden bg-background w-full h-14 fixed bottom-0 border-t-1 border-t-accent-foreground shadow-[0px_-20px_20px_0px_rgba(0,0,15,0.1)]">
+    <section className="flex items-center justify-around md:hidden bg-background w-full h-14 fixed bottom-0 border-t-1 border-t-accent-foreground shadow-[0px_-20px_20px_0px_rgba(0,0,15,0.1)] z-50">
       <Link href={routes.home}>
         <HomeIcon
           size={26}
@@ -39,7 +39,7 @@ export default function BottomTabBar() {
       </Link>
       <SearchIcon size={26} />
       <Link
-        href={routes.createPost}
+        href={routes.createPost.replace(":username", profile?.username ?? "")}
         className="-translate-y-4"
       >
         <div className="bg-spartan-500 p-3 rounded-full shadow-sm shadow-muted-foreground text-white">
