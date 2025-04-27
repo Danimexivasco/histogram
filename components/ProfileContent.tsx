@@ -152,6 +152,7 @@ function Posts({ posts }: {posts: PostWithProfile[] | null}) {
         </Button>
         <Button
           variant="ghost"
+          size="lg"
           onClick={() => setLayout("feed")}
         ><GalleryVerticalIcon className={cn("!w-8 !h-8", layout === "feed" && "text-spartan-500")}/>
         </Button>

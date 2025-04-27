@@ -2,7 +2,7 @@ import { isImage } from "@/lib/utils/mediaCheck";
 import Image from "next/image";
 import { Button } from "./ui/Button";
 import { CheckIcon, XIcon } from "lucide-react";
-import { FilePreview, UploadProgress } from "@/app/post/create/page";
+import { FilePreview, UploadProgress } from "@/app/[username]/post/create/page";
 
 type MediaPreviewProps = {
   preview: FilePreview[];
