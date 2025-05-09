@@ -1,4 +1,9 @@
-import { HeartIcon } from "lucide-react";
+import {
+  BookmarkIcon,
+  HeartIcon,
+  MessageCircleIcon,
+  SendIcon
+} from "lucide-react";
 import { routes } from "@/lib/routes";
 import Container from "./Container";
 import Avatar from "./Avatar";
@@ -32,8 +37,13 @@ const PostFooter = ({ post }: {post: PostWithProfile}) => {
 
   return (
     <Container className="mt-4 space-y-4 md:px-2">
-      <div className="flex items-center gap-4">
-        <HeartIcon />
+      <div className="flex items-center justify-between">
+        <div className="flex items-center gap-4">
+          <HeartIcon className="cursor-pointer"/>
+          <MessageCircleIcon className="cursor-pointer"/>
+          <SendIcon className="cursor-pointer"/>
+        </div>
+        <BookmarkIcon className="cursor-pointer"/>
       </div>
       <div className="grid grid-cols-[0.2fr_1fr] align-content-start gap-4">
         <Link
