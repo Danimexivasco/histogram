@@ -15,8 +15,9 @@ const POST_KEYS = {
 
 export const usePosts = () => {
   return useQuery({
-    queryKey: POST_KEYS.posts,
-    queryFn:  PostService.getAll
+    queryKey:             POST_KEYS.posts,
+    queryFn:              PostService.getAll,
+    refetchOnWindowFocus: false
   });
 };
 
