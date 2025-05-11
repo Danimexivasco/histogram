@@ -187,3 +187,22 @@
   background-color: var(--color-spartan-500) !important;
 }
 
+
+.likeAnimation {
+  animation: like 0.45s ease-in-out both;
+}
+
+@keyframes like {
+  0% {
+    transform: scale(1);
+  }
+  25% {
+    transform: scale(1.2);
+  }
+  50% {
+    transform: scale(.95);
+  }
+  100% {
+    transform: scale(1);
+  }
+}

@@ -1,4 +1,4 @@
-import { Post } from "@/schema/post";
+import { PostWithLike } from "@/schema/post";
 import { Profile } from "@/schema/profile";
 import FeedPost from "./FeedPost";
 import NoPosts from "./NoPosts";
@@ -7,14 +7,14 @@ import "swiper/css";
 import "swiper/css/navigation";
 import "swiper/css/pagination";
 
-export type PostWithProfile = Post & {
+export type PostWithProfile = PostWithLike & {
   profile?: Profile;
   profileIsLoading?: boolean;
   profileError?: unknown;
 };
 
 type FeedProps = {
-  posts: PostWithProfile[];
+  posts: PostWithProfile[] ;
 };
 
 export default function Feed({ posts = [] }: FeedProps) {

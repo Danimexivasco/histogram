@@ -3,5 +3,6 @@ export const apiRoutes = {
   checkProfileCreation: "/api/check-profile-creation",
   cloudinary:           "/api/cloudinary",
   profile:              "/api/profile",
-  uploadAvatar:         "/api/upload-avatar"
+  uploadAvatar:         "/api/upload-avatar",
+  likes:                "/api/likes"
 };

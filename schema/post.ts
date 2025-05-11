@@ -12,3 +12,9 @@ export type Post = z.infer<typeof postSchema>;
 
 export const validatePost = postSchema.safeParse;
 
+export const postWithLikeSchema = postSchema.extend({
+  isLiked: z.boolean().optional()
+});
+
+export type PostWithLike = z.infer<typeof postWithLikeSchema>;
+

@@ -171,7 +171,7 @@ function Posts({ posts }: {posts: PostWithProfile[] | null}) {
 export default function ProfileContent({ username }: ProfileContentProps) {
   const { data: profile } = useGetProfileByUsername(username);
   const { data: posts, isFetching } = usePostsByUser(profile?.user_id ?? "");
-  const [postsWithProfielInfo, setPostsWithProfileInfo] = useState<PostWithProfile[]>([]);
+  const [postsWithProfileInfo, setPostsWithProfileInfo] = useState<PostWithProfile[]>([]);
 
   useEffect(() => {
     if(profile && posts && posts.length > 0) {
@@ -201,7 +201,7 @@ export default function ProfileContent({ username }: ProfileContentProps) {
         profile={profile}
         postsLength={posts?.length ?? 0}
       />
-      <Posts posts={postsWithProfielInfo ?? null}/>
+      <Posts posts={postsWithProfileInfo ?? null}/>
     </Container>
   );
 }
