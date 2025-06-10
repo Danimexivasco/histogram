@@ -1,10 +1,9 @@
+> [!IMPORTANT]
+> This project is a work in progress. Features and functionalities are subject to change, and some parts of the application may not function as expected.
+
 # 🏛️ Histogram
 
 **Histogram** is a social media app for history enthusiasts. It provides a space where users can share, discuss, and explore historical content, fostering a community passionate about the past.
-
-> [!WARNING]
-> This project is a work in progress. Features and functionalities are subject to change, and some parts of the application may not function as expected. Use with caution.
-
 
 ## 🛠️ Tech Stack
 
